@@ -63,16 +63,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Assets\Scripts\Citizen.cs" />
-    <Compile Include="Assets\Assets\Scripts\City.cs" />
-    <Compile Include="Assets\Assets\Scripts\District.cs" />
-    <Compile Include="Assets\Assets\Scripts\Geography.cs" />
-    <Compile Include="Assets\Assets\Scripts\GeographyManager.cs" />
-    <Compile Include="Assets\Assets\Scripts\MapGenerator.cs" />
-    <Compile Include="Assets\Assets\Scripts\Resource.cs" />
-    <Compile Include="Assets\Assets\Scripts\Tile.cs" />
-    <Compile Include="Assets\Assets\Scripts\TileManager.cs" />
+    <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Citizen.cs" />
+    <Compile Include="Assets\Scripts\City.cs" />
+    <Compile Include="Assets\Scripts\District.cs" />
+    <Compile Include="Assets\Scripts\Geography.cs" />
+    <Compile Include="Assets\Scripts\GeographyManager.cs" />
+    <Compile Include="Assets\Scripts\MapGenerator.cs" />
+    <Compile Include="Assets\Scripts\Resource.cs" />
+    <Compile Include="Assets\Scripts\Tile.cs" />
+    <Compile Include="Assets\Scripts\TileManager.cs" />
+    <Compile Include="Assets\Scripts\TileMap.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
