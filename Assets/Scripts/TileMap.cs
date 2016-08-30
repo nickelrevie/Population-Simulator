@@ -8,7 +8,7 @@ public class TileMap
     private int mapHeight;
     private int mapWidth;
 
-    public void setMap(GameObject[,] _tileMap)
+    public void SetMap(GameObject[,] _tileMap)
     {
         tileMap = _tileMap;
         //Doublecheck that these assign the right ones. As in make sure GetLength(0) is height and 1 is width.
@@ -16,8 +16,13 @@ public class TileMap
         mapWidth = tileMap.GetLength(1);
     }
 
-    public GameObject[,] getMap()
+    public GameObject[,] GetMap()
     {
         return tileMap;
+    }
+
+    public GameObject GetTile(int[] location)
+    {
+        return tileMap[location[0], location[1]];
     }
 }

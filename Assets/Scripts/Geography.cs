@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class Geography
 {
-
     public enum Biome
     {
         forest = 0,
@@ -17,66 +16,66 @@ public class Geography
     }
 
     private Sprite sprite;
-    private List<Resource> resourceList;
+    private List<ResourceDeposit> resourceDeposits;
     private Biome biome;
 
-    public Geography(Biome _biome, Resource[] baseResourceList, Sprite _sprite)
+    public Geography(Biome _biome, ResourceDeposit[] baseResourceDeposits, Sprite _sprite)
     {
-        resourceList = new List<Resource>();
-        if (baseResourceList.Length != 0)
+        resourceDeposits = new List<ResourceDeposit>();
+        if (baseResourceDeposits.Length != 0)
         {
-            foreach (Resource res in baseResourceList)
+            foreach (ResourceDeposit resDeposit in baseResourceDeposits)
             {
-                resourceList.Add(res);
+                resourceDeposits.Add(resDeposit);
             }
         }
         biome = _biome;
         sprite = _sprite;
     }
 
-    public Biome getBiome()
+    public Biome GetBiome()
     {
         return biome;
     }
 
-    public Sprite getSprite()
+    public Sprite GetSprite()
     {
         return sprite;    
     }
 
-    public List<Resource> getResourceList()
+    public List<ResourceDeposit> GetResourceDeposits()
     {
-        return resourceList;
+        return resourceDeposits;
     }
 
-    public void addResources(List<Resource> newResources)
+    public void AddResourceDeposits(List<ResourceDeposit> newResourceDeposits)
     {
-        foreach (Resource newRes in newResources)
+        foreach (ResourceDeposit newResDeposit in newResourceDeposits)
         {
-            if (resourceList.Count != 0)
+            if (resourceDeposits.Count != 0)
             {
-                List<Resource> resToAdd = new List<Resource>();
-                foreach (Resource res in resourceList)
+                List<ResourceDeposit> resDepositToAdd = new List<ResourceDeposit>();
+                foreach (ResourceDeposit resDeposit in resourceDeposits)
                 {
-                    if (newRes.getType() == (res.getType()))
+                    if (newResDeposit.GetDepositType() == (resDeposit.GetDepositType()))
                     {
-                        res.increaseYield(newRes.getYield());
+                        resDeposit.IncreaseDepositSize(newResDeposit.GetDepositSize());
                     }
                     else
                     {
-                        resToAdd.Add(newRes);
+                        resDepositToAdd.Add(newResDeposit);
                     }
                 }
-                foreach (Resource res in resToAdd)
+                foreach (ResourceDeposit resDeposit in resDepositToAdd)
                 {
-                    resourceList.Add(res);
+                    resourceDeposits.Add(resDeposit);
                 }
             }
             else
             {
-                foreach (Resource res in newResources)
+                foreach (ResourceDeposit resDeposit in newResourceDeposits)
                 {
-                    resourceList.Add(res);
+                    resourceDeposits.Add(resDeposit);
                 }
             }
         }

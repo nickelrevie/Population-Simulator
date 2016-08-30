@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class City : MonoBehaviour
 {
-    District centerDistrict;
-    List<District> otherDistricts;
+    Settlement cityCenter;
+    List<Settlement> districts;
     
     //Average of traits in the city. "City values"
     //Static Traits 0-99 in value;
@@ -29,7 +29,7 @@ public class City : MonoBehaviour
 	
 	}
 
-    void updateCity()
+    void UpdateCity()
     {
 
     }

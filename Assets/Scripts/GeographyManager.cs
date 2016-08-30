@@ -14,27 +14,27 @@ public static class GeographyManager{
 
     private static Sprite[] spriteList = {forestSprite, grasslandSprite, swampSprite, mountainSprite, tundraSprite, waterSprite, desertSprite};
 
-    private static Resource[] forestResources =     { new Resource(Resource.Type.Wood, 3),      new Resource(Resource.Type.Animals, 2),     new Resource(Resource.Type.Vegetables, 1)   };
-    private static Resource[] grasslandResources =  { new Resource(Resource.Type.Grains, 3),    new Resource(Resource.Type.Animals, 1),                                                 };
-    private static Resource[] swampResources =      { new Resource(Resource.Type.Animals, 1),   new Resource(Resource.Type.Vegetables, 1)                                               };
-    private static Resource[] mountainResources =   { new Resource(Resource.Type.Stone, 2),     new Resource(Resource.Type.Metals, 1)                                                   };
-    private static Resource[] tundraResources =     { new Resource(Resource.Type.Animals, 1),   new Resource(Resource.Type.Vegetables, 1)                                               };
-    private static Resource[] waterResources =      { new Resource(Resource.Type.SeaAnimals, 1)                                                                                         };
-    private static Resource[] desertResources =     {                                                                                                                                   };
+    private static ResourceDeposit[] forestResources =     { new ResourceDeposit(Resource.Type.Wood, 3),      new ResourceDeposit(Resource.Type.Animals, 2),     new ResourceDeposit(Resource.Type.Vegetables, 1)   };
+    private static ResourceDeposit[] grasslandResources =  { new ResourceDeposit(Resource.Type.Grains, 3),    new ResourceDeposit(Resource.Type.Animals, 1),                                                        };
+    private static ResourceDeposit[] swampResources =      { new ResourceDeposit(Resource.Type.Animals, 1),   new ResourceDeposit(Resource.Type.Vegetables, 1)                                                      };
+    private static ResourceDeposit[] mountainResources =   { new ResourceDeposit(Resource.Type.Stone, 2),     new ResourceDeposit(Resource.Type.Metals, 1)                                                          };
+    private static ResourceDeposit[] tundraResources =     { new ResourceDeposit(Resource.Type.Animals, 1),   new ResourceDeposit(Resource.Type.Vegetables, 1)                                                      };
+    private static ResourceDeposit[] waterResources =      { new ResourceDeposit(Resource.Type.SeaAnimals, 1)                                                                                                       };
+    private static ResourceDeposit[] desertResources =     {                                                                                                                                                        };
 
-    private static Resource[][] baseResourceList = {forestResources, grasslandResources, swampResources, mountainResources, tundraResources, waterResources, desertResources};
+    private static ResourceDeposit[][] baseResourceList = {forestResources, grasslandResources, swampResources, mountainResources, tundraResources, waterResources, desertResources};
 
-    public static Geography createGeography(Geography.Biome biome)
+    public static Geography CreateGeography(Geography.Biome biome)
     {
         Geography newGeography = new Geography(biome, baseResourceList[(int)biome], spriteList[(int)biome]);
-        addRandomResourcesToGeography(newGeography);
+        AddRandomResourcesToGeography(newGeography);
         return newGeography;
     }
 
-    private static void addRandomResourcesToGeography(Geography geography)
+    private static void AddRandomResourcesToGeography(Geography geography)
     {
-        List<Resource> resourcesToAdd = new List<Resource>();
-        if (geography.getBiome() == Geography.Biome.water) //
+        List<ResourceDeposit> resourceDepositsToAdd = new List<ResourceDeposit>();
+        if (geography.GetBiome() == Geography.Biome.water) //
         {
             int spawnChance = 49;
             if (spawnChance < Random.Range(0, 100))
@@ -44,8 +44,8 @@ public static class GeographyManager{
                 {
                     yield -= 1;
                 }
-                resourcesToAdd.Add(new Resource(Resource.Type.SeaAnimals, yield));
-                geography.addResources(resourcesToAdd);
+                resourceDepositsToAdd.Add(new ResourceDeposit(Resource.Type.SeaAnimals, yield));
+                geography.AddResourceDeposits(resourceDepositsToAdd);
             }
         }
         else
@@ -61,13 +61,13 @@ public static class GeographyManager{
                     {
                         yield -= 1;
                     }
-                    resourcesToAdd.Add(new Resource(resourceType, yield));
+                    resourceDepositsToAdd.Add(new ResourceDeposit(resourceType, yield));
                     spawnChance /= 2;
                 }
             }
-            if (resourcesToAdd.Count > 0)
+            if (resourceDepositsToAdd.Count > 0)
             {
-                geography.addResources(resourcesToAdd);
+                geography.AddResourceDeposits(resourceDepositsToAdd);
             } 
         }
     }

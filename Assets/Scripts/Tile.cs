@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Tile : MonoBehaviour
-{ 
+{
+    private TileManager manager;
 
     public GameObject selectedOverlay;
     public GameObject hoverOverlay;
@@ -14,8 +15,12 @@ public class Tile : MonoBehaviour
     private bool isOccupied;
 
     private Geography geography;
-    private List<Resource> resourceList;
+    private List<ResourceDeposit> resourceDeposits;
     private Sprite sprite;
+
+    private List<Citizen> inhabitants;
+    private Settlement settlement;
+    private bool hasSettlement = false;
 
     void Start()
     {
@@ -51,21 +56,45 @@ public class Tile : MonoBehaviour
 
     }
 
-    public void applyGeography(Geography _geography)
+    public void ApplyGeography(Geography _geography)
     {
         geography = _geography;
-        resourceList = geography.getResourceList();
-        sprite = geography.getSprite();
-        setSprite();
+        resourceDeposits = geography.GetResourceDeposits();
+        sprite = geography.GetSprite();
+        SetSprite();
     }
 
-    private void setSprite()
+    private void SetSprite()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
-    bool getIsOccupied()
+    bool GetIsOccupied()
     {
         return isOccupied;
+    }
+
+    public void AddInhabitant(Citizen inhabitant)
+    {
+        inhabitants.Add(inhabitant);
+        if (hasSettlement)
+        {
+            settlement.AddInhabitant(inhabitant);
+        }
+    }
+
+    public bool GetHasSsettlement()
+    {
+        return hasSettlement;
+    }
+
+    public Settlement GetSettlement()
+    {
+        return settlement;
+    }
+    
+    public void AddNewSettlement()
+    {
+        settlement = gameObject.AddComponent<Settlement>();
     }
 }

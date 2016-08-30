@@ -35,17 +35,22 @@ public class Resource{
         yield = _yield;
     }
 
-    public void increaseYield(int _yield)
+    public void IncreaseYield(int _yield)
     {
         yield += _yield;
     }
 
-    public int getYield()
+    public void DecreaseYield(int _yield)
+    {
+        yield -= _yield;
+    }
+
+    public int GetYield()
     {
         return yield;
     }
 
-    public Type getType()
+    public Type GetResourceType()
     {
         return type;
     }

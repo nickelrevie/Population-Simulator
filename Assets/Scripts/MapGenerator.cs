@@ -8,7 +8,7 @@ public class MapGenerator{
 
     private TileMap generatedMap;
 
-    public TileMap createTileMap() //Add parameters when procedural generation is put in.
+    public TileMap CreateTileMap() //Add parameters when procedural generation is put in.
     {
         GameObject[,] tileMap = new GameObject[mapHeight, mapWidth];
         for (int i = 0; i < mapHeight; i++)
@@ -21,26 +21,26 @@ public class MapGenerator{
             }
         }
         generatedMap = new TileMap();
-        generatedMap.setMap(tileMap);
-        generateRandomGeographyMap(generatedMap);
-        return getGeneratedTileMap();
+        generatedMap.SetMap(tileMap);
+        GenerateRandomGeographyMap(generatedMap);
+        return GetGeneratedTileMap();
     }
 
-    public TileMap getGeneratedTileMap()
+    public TileMap GetGeneratedTileMap()
     {
         return generatedMap;
     }
 
-    void generateRandomGeographyMap(TileMap tileMap)
+    void GenerateRandomGeographyMap(TileMap tileMap)
     {
-        GameObject[,] map = tileMap.getMap();
+        GameObject[,] map = tileMap.GetMap();
         for (int i = 0; i < mapHeight; i++)
         {
             for (int k = 0; k < mapWidth; k++)
             {
                 Geography.Biome randomBiome = (Geography.Biome)Random.Range(0, 7);
-                Geography geography = GeographyManager.createGeography(randomBiome);
-                map[i, k].GetComponent<Tile>().applyGeography(geography);
+                Geography geography = GeographyManager.CreateGeography(randomBiome);
+                map[i, k].GetComponent<Tile>().ApplyGeography(geography);
             }
         }
     }
