@@ -3,9 +3,6 @@ using System.Collections;
 
 public class TileManager: MonoBehaviour {
 
-    //Remove this if test works
-    //public GameObject tile_prefab;
-
     private TileMap tileMap;
     
     // Use this for initialization
