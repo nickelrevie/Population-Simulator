@@ -64,8 +64,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Citizen System\Brain.cs" />
     <Compile Include="Assets\Scripts\Citizen System\Citizen.cs" />
     <Compile Include="Assets\Scripts\Citizen System\CitizenManager.cs" />
+    <Compile Include="Assets\Scripts\Citizen System\GeneticCode.cs" />
     <Compile Include="Assets\Scripts\Settlement System\City.cs" />
     <Compile Include="Assets\Scripts\Settlement System\House.cs" />
     <Compile Include="Assets\Scripts\Settlement System\Resource.cs" />

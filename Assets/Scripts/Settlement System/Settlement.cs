@@ -62,7 +62,6 @@ public class Settlement : MonoBehaviour {
     }
 
     //SETTLEMENT UPGRADE SYSTEM
-
     //Check if the settlement is large enough to upgrade to a larger settlement class.
     void EvaluateSettlementClass()
     {
@@ -71,11 +70,15 @@ public class Settlement : MonoBehaviour {
         {
             case Class.Camp:
                 if (UseStockpiledResource(Resource.Type.Wood, 500) == true)
+                {
                     newSettlementClass = Class.Village;
+                }
                 break;
             case Class.Village:
                 if (UseStockpiledResource(Resource.Type.Wood, 5000) == true && population.Count > 10)
+                {
                     newSettlementClass = Class.Town;
+                }
                 break;
             case Class.Town:
                 break;
@@ -90,7 +93,6 @@ public class Settlement : MonoBehaviour {
         settlementClass = newClass;
         //Insert change graphic code for new settlement class. Settlement graphics not implemented yet.
     }
-
 
     //SETTLEMENT STOCKPILE AND RESOURCE SYSTEM
 
