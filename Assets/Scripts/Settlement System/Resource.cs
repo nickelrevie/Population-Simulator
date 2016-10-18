@@ -6,24 +6,24 @@ public class Resource{
     public enum Type
     {
         //Natural
-        Animals     = 0,
-        Vegetables  = 1,
-        Fruit       = 2,
-        Grains      = 3,
-        Metals      = 4,
-        RareMetals  = 5,
-        Stone       = 6,
-        Gems        = 7,
-        Wood        = 8,
-        SeaAnimals  = 9,
+        Animals,
+        Vegetables,
+        Fruit,
+        Grains,
+        Metals,
+        RareMetals,
+        Stone,
+        Gems,
+        Wood,
+        SeaAnimals,
 
         //Developed
-        Clothing    = 10,
-        Ceramics    = 11,
-        Woodwork    = 12,
-        Metalwork   = 13,
-        Masonry     = 14,
-        Jewelry     = 15
+        Clothing,
+        Ceramics,
+        Woodwork,
+        Metalwork,
+        Masonry,
+        Jewelry
     }
 
     private Type type; //The type of the resource
