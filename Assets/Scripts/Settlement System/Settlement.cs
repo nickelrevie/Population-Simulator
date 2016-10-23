@@ -7,11 +7,11 @@ public class Settlement : MonoBehaviour {
     //The Settlement Tile Types. Revisit to make districts a new class and have the center be a City
     public enum Class
     {
-        Camp = 0,       //Camps are one tile and have no government, citizens can create a village by accumulating wood.
-        Village = 1,    //Villages are one tile and have basic government.
-        Town = 2,       //Towns are one tile and have a basic government, but are larger.
-        Center = 3,     //Center tiles are the center of a city and have a more complex governemt. Cities can have more than one tile
-        District        //Districts are the remaining tiles of a city.
+        Camp,               //Camps are one tile and have a simple government, citizens can create a village by accumulating wood.
+        Village,            //Villages are one tile and have basic government.
+        Town,               //Towns are one tile and have a basic government, but are larger.
+        Center,             //Center tiles are the center of a city and have a more complex governemt. Cities can have more than one tile
+        District            //Districts are the remaining tiles of a city.
     }
 
     private GameObject hostTile;                            //The tile game object that this settlement is located on.
@@ -65,7 +65,7 @@ public class Settlement : MonoBehaviour {
     //Check if the settlement is large enough to upgrade to a larger settlement class.
     void EvaluateSettlementClass()
     {
-        Class newSettlementClass = settlementClass; //Set it to the current settlement class so the 
+        Class newSettlementClass = settlementClass; //Set it to the current settlement class so it's initialized.
         switch(settlementClass)
         {
             case Class.Camp:

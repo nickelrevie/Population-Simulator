@@ -98,8 +98,8 @@ public class Tile : MonoBehaviour
         }
     }
     
-    //Returns true if there is a settlement on the tiel.
-    public bool GetHasSsettlement()
+    //Returns true if there is a settlement on the tile.
+    public bool HasSettlement()
     {
         return hasSettlement;
     }

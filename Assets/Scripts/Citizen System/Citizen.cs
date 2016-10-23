@@ -3,6 +3,10 @@ using System.Collections;
 
 public class Citizen
 {
+    //AI HUB
+    private Brain brain; //The brain controls all the decision making for the citizen.
+
+
     private int age = 0;    //The age of the citizen.
     private Tile location;  //The tile the Citizen is currently located on.
 
@@ -13,7 +17,7 @@ public class Citizen
     //Citizen health variables
     private int happiness   =  0;       //The happiness of the 0-99. Happy and wealthy citizens are less likely to leave or rebel or attack people of differing values.
     private int food        =  0;       //The amount of food the citizen posesses. Decreases happiness and health if the food value is at zero.
-    private int health      =  0;       //The physical health of the citizen. 0-99. 49 is healthy. Influences resource skill. The citizen dies if its health reaches 0. Age decreases maximum health.
+    private int health      = 50;       //The physical health of the citizen. 0-99. 49 is healthy. Influences resource skill. The citizen dies if its health reaches 0. Age decreases maximum health.
     private int fertility   = 20;       //The chance to 0-20. 
 
     //Trait genetic code of the citizen. These affect the behavior of the Citizen. Go from 0-99. Some are not applicable until more AI systems are implemented.
@@ -25,8 +29,9 @@ public class Citizen
 
     //Creates a new citizen and it should be on the same tile as the parent.
     public Citizen(Citizen parent)
-    {
+    { 
         geneticCode = new GeneticCode(parent.geneticCode);
+        brain = new Brain(this, geneticCode);
         location = parent.location;
     }
 
@@ -34,22 +39,22 @@ public class Citizen
     public Citizen(Tile _location)
     {
         geneticCode = new GeneticCode();
+        brain = new Brain(this, geneticCode);
         location = _location;
     }
 
     //Tells the citizen to do actions this next time step.
     public void UpdateCitizen()
     {
-        //Checks if it can reproduce.
-        if (CanReproduce())
+        Age(); //Ages the citizen.
+        if (CanReproduce()) //Checks if it can reproduce and does if it returns true;
         {
             Reproduce();
         }
         //Checks if it will move. If there is a nearby city, it will try to move there. If there is low happiness it will leave a city and find a new one or found a new one.
-        
     }
 
-    //
+    //Ages the citizen.
     void Age() //Check to see if using same as variable name is misleading.
     {
         age++;              //Increases age by one.
@@ -58,6 +63,14 @@ public class Citizen
         if (age > 10)
         {
             fertility -= 1; //Reduces fertility by 1. When over the age of 10.
+        }
+    }
+
+    void HealthCheck()
+    {
+        if (health <= 0)
+        {
+
         }
     }
 
@@ -73,7 +86,6 @@ public class Citizen
     {
         Citizen newCitizen = new Citizen(this);
     }
-
 
     //MOVEMENT METHODS 
 
@@ -102,7 +114,7 @@ public class Citizen
     //Otherwise move to nearby space that seems habitable
     bool CheckSettlementStatus()
     {
-        return location.GetHasSsettlement();
+        return location.HasSettlement();
     }
 
     //RESOURCE COLLECTION METHODS
@@ -111,5 +123,22 @@ public class Citizen
     public Resource CollectResourcesFromDeposit()
     {
         return resourceWorked.GatherResource(this);
+    }
+
+    //GET METHODS
+    public Tile GetLocation()
+    {
+        return location;
+    }
+
+    public int GetHappiness()
+    {
+        return happiness;
+    }
+
+    //SET METHODS
+    public void SetHappiness(int _happiness)
+    {
+        happiness = _happiness;
     }
 }

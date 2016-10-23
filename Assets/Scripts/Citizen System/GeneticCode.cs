@@ -5,18 +5,18 @@ using System.Collections.Generic;
 public class GeneticCode
 {
     //Enum of all the genetic traits
-    //These affect the behavior of the Citizen. Go from 0-99 in the acrual array. Some are not applicable until more AI systems are implemented.
+    //These affect the behavior of the Citizen. Go from 0-99 in the actual array. Some are not applicable until more AI systems are implemented.
     public enum GeneticTrait
     {
         Faith,              //Faith provides a happiness benefit when there are more of a similar faith value nearby.
-        Honor,              //Honor determines whether they will attempt to attack enemies.
+        Honor,              //Honor increases happiness when the citizen has high health and is not starving
         Determination,      //Resists happiness decline when resources are scarce. Influences resource skill.
-        Loyalty,            //Determines whether a citizen is more likely to rebel or not rebel against their own allies.
-        Tolerance,          //A higher value raises happiness when there are differing values and lower values lower happiness when there are differing values. Also affects when Citizens get placed as an ally or enemy.
+        Loyalty,            //Determines whether a citizen is likely to stay in the same settlement even if on low happiness
+        Tolerance,          //A higher value raises happiness when there are differing values and lower values lower happiness when there are differing values.
         Creativity,         //Increases the rate of resource skill development. Higher values also make the citizen lose happiness when staying in one spot for a long time.
         Compassion,         //A higher value increases food production in a settlement and adds a happiness bonus in a city.
         Resourcefulness,    //Stays healthier on low health values. Uses less food and resists happiness decline when on low food. Higher values increase the effectiveness.
-        Virtue,             //Higher virtue artificially boosts compassion, wisdom, loyalty and tolerance when calculating their values.
+        Virtue,             //Higher virtue artificially boosts compassion, wisdom, loyalty and tolerance when calculating their effects.
         Wisdom              //Higher wisdom increases the resource skill of citizens mining the same resource deposit.
     }
     private int numberOfTraits = 10;    //Number of traits in the genetic trait enum
@@ -50,17 +50,17 @@ public class GeneticCode
     //Rerolls a random number (1-3) of traits.
     void RerollRandomTraits()
     {
-        int traitsToChange = Random.Range(1, 4);
-        List<int> traitsChanged = new List<int>();
+        int traitsToChange = Random.Range(1, 4);            //The number of traits to change is 1-3
+        List<int> traitsChanged = new List<int>();          //Creates empty list to keep track of traits that were change and their values.
         for (int i = 0; i < traitsToChange; i++)
         {
-            int trait = Random.Range(0, numberOfTraits);
-            while (traitsChanged.Contains(trait))
+            int trait = Random.Range(0, numberOfTraits);    //Chooses a trait to change
+            while (traitsChanged.Contains(trait))           //If the trait is already in the changed array, keep rerolling the trait to modify until it is no longer in the list.
             {
                 trait = Random.Range(0, numberOfTraits);
             }
-            traitsChanged.Add(trait);
-            RollTrait(trait);
+            traitsChanged.Add(trait);                       //Adds it to the list of changed traits
+            RollTrait(trait);                               //Rolls a new value for the trait.
         }
     }
 
@@ -74,8 +74,8 @@ public class GeneticCode
     }
 
     //Method that actually rolls the trait. Used in both types of code generation.
-    void RollTrait(int traitNumber)
+    void RollTrait(int trait)
     {
-        geneticTraits[traitNumber] = Random.Range(0, 100);
+        geneticTraits[trait] = Random.Range(0, 100);  //Rolls a random number for this specific trait.
     }
 }
