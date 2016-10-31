@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Tile : MonoBehaviour
 {
     //Each tile can communicate with the tile manager.
-    private TileManager manager;
+    private TileMap tileMap;
 
     //The overlays so that the user knows when they have selected the tile or are hovering over it.
     //The is selected variable for the selected
@@ -15,9 +15,6 @@ public class Tile : MonoBehaviour
 
     //Location of the tile in the TileMap
     private int[] location = new int[2]; //x,y
-
-    //If the tile is occupied by at least one person.
-    private bool isOccupied;
 
     //The geography of the sprite, the resource deposits on the tile due to the geography, and the sprite image of the geography type.
     private Geography geography;
@@ -82,12 +79,6 @@ public class Tile : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
-    //Returns the isOccupied variable. If there is at least one citizen on the tile, it will return true.
-    bool GetIsOccupied()
-    {
-        return isOccupied;
-    }
-
     //Adds a citizen to the inhabitant list of the tile, if there is a settlement on the tile, it will also add them to the inhabiant list of that.
     public void AddInhabitant(Citizen inhabitant)
     {
@@ -104,15 +95,37 @@ public class Tile : MonoBehaviour
         return hasSettlement;
     }
 
+    //Returns true if there is at least one settler living on the tile.
+    public bool HasSettlers()
+    {
+        return inhabitants.Count > 0;
+    }
+
     //Returns the settlement object.
     public Settlement GetSettlement()
     {
         return settlement;
+    }
+
+    //Returns the tile manager object
+    public TileMap GetTileMap()
+    {
+        return tileMap;
     }
     
     //Adds a settlement to the tile when one is created.
     public void AddNewSettlement()
     {
         settlement = gameObject.AddComponent<Settlement>();
+    }
+
+    public int[] GetLocation()
+    {
+        return location;
+    }
+
+    public List<ResourceDeposit> GetResourceDeposits()
+    {
+        return resourceDeposits;
     }
 }

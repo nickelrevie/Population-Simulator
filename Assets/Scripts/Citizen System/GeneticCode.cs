@@ -19,8 +19,8 @@ public class GeneticCode
         Virtue,             //Higher virtue artificially boosts compassion, wisdom, loyalty and tolerance when calculating their effects.
         Wisdom              //Higher wisdom increases the resource skill of citizens mining the same resource deposit.
     }
-    private int numberOfTraits = 10;    //Number of traits in the genetic trait enum
-    private int[] geneticTraits;        //Genetic trait array
+    private readonly int numberOfTraits = 10;       //Number of traits in the genetic trait enum
+    private int[] geneticTraits;                    //Genetic trait array
 
     //Constructor for when new citizens are born.
     public GeneticCode(GeneticCode parentCode)

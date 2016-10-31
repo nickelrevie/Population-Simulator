@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Citizen
 {
@@ -7,18 +8,17 @@ public class Citizen
     private Brain brain; //The brain controls all the decision making for the citizen.
 
 
-    private int age = 0;    //The age of the citizen.
     private Tile location;  //The tile the Citizen is currently located on.
 
     //Settlement variables
     private Settlement homeSettlement;  //The settlement the citizen is currently living in.
     private House homeBuilding;         //The building the citizen is currently living in.
 
-    //Citizen health variables
-    private int happiness   =  0;       //The happiness of the 0-99. Happy and wealthy citizens are less likely to leave or rebel or attack people of differing values.
-    private int food        =  0;       //The amount of food the citizen posesses. Decreases happiness and health if the food value is at zero.
-    private int health      = 50;       //The physical health of the citizen. 0-99. 49 is healthy. Influences resource skill. The citizen dies if its health reaches 0. Age decreases maximum health.
-    private int fertility   = 20;       //The chance to 0-20. 
+    //Citizen physical health variables
+    private int age         =     0;    //The age of the citizen.
+    private int health      =    50;    //The physical health of the citizen. 0-99. 49 is healthy. Influences resource skill. The citizen dies if its health reaches 0. Age decreases maximum health.
+    private int fertility   =    20;    //The chance to spawn another person per turn. 0-20.
+    private bool hungry     = false;    //The amount of food the citizen posesses. Decreases happiness and health if the food value is at zero.
 
     //Trait genetic code of the citizen. These affect the behavior of the Citizen. Go from 0-99. Some are not applicable until more AI systems are implemented.
     private GeneticCode geneticCode;
@@ -59,11 +59,16 @@ public class Citizen
     {
         age++;              //Increases age by one.
         health -= 2;        //Reduces health due to aging.
-        food   -= 1;        //Consumes 1 food per time step. Modify amount?
         if (age > 10)
         {
             fertility -= 1; //Reduces fertility by 1. When over the age of 10.
         }
+    }
+
+    //Consume Food
+    void ConsumeFood()
+    {
+
     }
 
     void HealthCheck()
@@ -90,21 +95,41 @@ public class Citizen
     //MOVEMENT METHODS 
 
     //Move the citizen to a new tile. It would have to check if there is a settlement so that it can attempt to live there for the turn. The citizen will then decide if it wants to stay and inhabit it for a period of time.   
-    void MoveToNewTile(Tile destination)
+    public void MoveToNewTile(Tile destination)
     {
         //Tells the tile there is another person on the location.
-        //The destination shoudl always be a bordering tile unless the citizen can move multiple times.
+        //The destination should always be a bordering tile unless the citizen can move multiple times.
         location = destination;
         location.AddInhabitant(this);
-        if (CheckSettlementStatus())
-        {
+    }
 
-        }
-        else
-        {
+    //Scans the nearby tiles and returns them.
+    public List<Tile> GetNearbyTiles()
+    {
+        List<Tile> nearbyTiles = new List<Tile>();                      //Creates an empty list of tiles. This list is variable in size.
+        TileMap map = location.GetTileMap();                            //Gets the tile map.
+        int[] currentLocation = location.GetLocation();                 //Gets the location array from the home tile.
 
+        //Adds all the tiles that border the current tile. Make a more complex 
+        AddToNearbyTiles(map, nearbyTiles, new int[] { currentLocation[0] - 1, currentLocation[1]    });    //Gets the tile to the          left    of the location.
+        AddToNearbyTiles(map, nearbyTiles, new int[] { currentLocation[0]    , currentLocation[1] - 1});    //Gets the tile to the  bottom  left    of the location.
+        AddToNearbyTiles(map, nearbyTiles, new int[] { currentLocation[0]    , currentLocation[1] + 1});    //Gets the tile to the  top     left    of the location.
+        AddToNearbyTiles(map, nearbyTiles, new int[] { currentLocation[0] + 1, currentLocation[1]    });    //Gets the tile to the          right   of the location.
+        AddToNearbyTiles(map, nearbyTiles, new int[] { currentLocation[0] + 1, currentLocation[1] - 1});    //Gets the tile to the  bottom  right   of the location.
+        AddToNearbyTiles(map, nearbyTiles, new int[] { currentLocation[0] + 1, currentLocation[1] + 1});    //Gets the tile to the  top     right   of the location.
+
+        return nearbyTiles;
+    }
+
+    //Adds a tile to the nearby tiles list if it is a valid location on the world.
+    void AddToNearbyTiles(TileMap map, List<Tile> nearbyTiles, int[] location)
+    {
+        if (map.IsValidLocation(location))
+        {
+            nearbyTiles.Add(map.GetTile(location));
         }
     }
+
 
     //WHAT HAPPENS AFTER THE MOVMENT METHODS
 
@@ -112,7 +137,7 @@ public class Citizen
     //If one does not, check if it can inhabit the space
     //If not, move to another space in the settlement (if possible)
     //Otherwise move to nearby space that seems habitable
-    bool CheckSettlementStatus()
+    public bool CheckSettlementStatus()
     {
         return location.HasSettlement();
     }
@@ -129,16 +154,5 @@ public class Citizen
     public Tile GetLocation()
     {
         return location;
-    }
-
-    public int GetHappiness()
-    {
-        return happiness;
-    }
-
-    //SET METHODS
-    public void SetHappiness(int _happiness)
-    {
-        happiness = _happiness;
     }
 }
